@@ -2,16 +2,20 @@ package main
 
 import (
 	"fmt"
+	"log"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/shivamvijaywargi/go-commerce/configs"
+	"github.com/shivamvijaywargi/go-commerce/internal/api"
 )
 
 func main() {
-	fmt.Println("Hello World!")
+	cfg, err := configs.SetupEnv()
 
-	app := fiber.New()
+	fmt.Printf("config: %v\n", cfg)
 
-	// Routes
+	if err != nil {
+		log.Fatalf("config file is not loaded properly %v\n", err)
+	}
 
-	app.Listen("localhost:9000")
+	api.StartServer(cfg)
 }
